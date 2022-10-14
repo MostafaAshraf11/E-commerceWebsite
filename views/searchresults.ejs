@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-image: url("background3.jpg");
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            -webkit-text-stroke: 1px blue;
+        }
+        .iPhone13Pro {
+            color: white;
+            text-align: center;
+            margin:auto;
+            display: none;
+        }
+        #label2 {
+            position: relative;
+            right: 0px;
+        
+        }
+        .GalaxyS21Ultra {
+            color: white;
+            text-align: center;
+            margin:auto;
+            display: none;
+        }
+        #label3 {
+            position: relative;
+            right: 0px;
+        
+        }
+        .TheSunandHerFlowers {
+            color: white;
+            text-align: center;
+            margin:auto;
+            display: none;
+        }
+        #label4 {
+            position: relative;
+            right: 0px;
+        
+        }
+        .LeavesofGrass {
+            color: white;
+            text-align: center;
+            margin:auto;
+            display: none;
+        }
+        #label5 {
+            position: relative;
+            right: 0px;
+        
+        }
+        .TennisRacket {
+            color: white;
+            text-align: center;
+            margin:auto;
+            display: none;
+        }
+        #label6 {
+            position: relative;
+            right: 0px;
+        
+        }
+        .BoxingBag {
+            color: white;
+            text-align: center;
+            margin:auto;
+            display: none;
+        }
+        #label7 {
+            position: relative;
+            right: 0px;
+        
+        }
+        .notFound {
+            margin-top: 50px;
+            text-align: center;
+            visibility: hidden;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+        <a class="navbar-brand" style="color: rgb(191, 255, 161)">Search Results</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <form method="POST" action='/search' class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search"
+                    aria-label="Search" required>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>  
+    <div id="entry" style="visibility: hidden;"><%= entry%></div>
+  <div style="text-align: center; margin-top: 100px;">
+    <div class="iPhone13Pro">
+        <img id="image" src="/iphone.jpg" width="193" height="300">
+        <br>
+        <label id ="label2" class="ml-4 my-2">iPhone 13 Pro</label>
+        <br>
+        <button onclick="location.href = '/iphone';" id="iphone" class="btn btn-secondary ml-3"> View </button>
+    </div>
+    <div class="GalaxyS21Ultra">
+        <img id="image" src="/galaxy.jpg" width="193" height="300">
+        <br>
+        <label id="label3" class="ml-4 my-2">Galaxy S21 Ultra</label>
+        <br>
+        <button onclick="location.href = '/galaxy';" id="galaxy" class="btn btn-secondary ml-3"> View </button>
+    </div>
+    <div class="TheSunandHerFlowers">
+        <img id="image" src="/sun.jpg" width="193" height="300">
+        <br>
+        <label id ="label4" class="ml-4 my-2">The Sun and Her Flowers</label>
+        <br>
+        <button onclick="location.href = '/sun';" id="sun" class="btn btn-secondary ml-3"> View </button>
+    </div>
+    <div class="LeavesofGrass">
+        <img id="image" src="/leaves.jpg" width="193" height="300">
+        <br>
+        <label id="label5" class="ml-4 my-2">Leaves of Grass</label>
+        <br>
+        <button onclick="location.href = '/leaves';" id="leaves" class="btn btn-secondary ml-3"> View </button>
+    </div>
+    <div class="TennisRacket">
+        <img id="image" src="/tennis.jpg" width="193" height="300">
+        <br>
+        <label id ="label6" class="ml-4 my-2">Tennis Racket</label>
+        <br>
+        <button onclick="location.href = '/tennis';" id="tennis" class="btn btn-secondary ml-3"> View </button>
+    </div>
+    <div class="BoxingBag">
+        <img id="image" src="/boxing.jpg" width="193" height="300">
+        <br>
+        <label id="label7" class="ml-4 my-2">Boxing Bag</label>
+        <br>
+        <button onclick="location.href = '/boxing';" id="boxing" class="btn btn-secondary ml-3"> View </button>
+    </div>
+    <div class="notFound">
+        <label class="my-2"><h1 style="color: white">Item not found </h1></label>
+    </div>
+    <button  onclick="location.href = '/home';" id="home" class="btn btn-secondary ml-3">Home</button>
+  </div>
+    <script type=text/javascript>
+        var entry = document.getElementById('entry').innerHTML;
+        var items = ['iPhone 13 Pro','Galaxy S21 Ultra','The Sun and Her Flowers','Leaves of Grass','Tennis Racket','Boxing Bag'];
+        //console.log("This is supposed to be true or false");
+        //console.log((items[0].toLowerCase()).replace(/\s/g, ""));
+        var flag="false";
+        for(var i=0;i<items.length;i++){
+            var itemName=(items[i]);
+            console.log(i+" "+itemName);
+        if((itemName.toLowerCase()).includes((entry.toLowerCase()))){
+            flag="true";
+            itemName=  itemName.replace(/\s/g, "");
+            document.getElementsByClassName(itemName)[0].style.display ="inline-block";
+        }    
+     
+    }
+    if (flag=="false"){
+            document.getElementsByClassName("notFound")[0].style.visibility ="visible";       
+    }
+    </script>
+</body>
+</html>

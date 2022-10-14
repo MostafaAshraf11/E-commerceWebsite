@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-image: url("background3.jpg");
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            -webkit-text-stroke: 1px blue;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cart</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+        <a class="navbar-brand" style="color: rgb(191, 255, 161)">Cart</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <form method="POST" action='/search' class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search"
+                    aria-label="Search" required>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div id="items" style="display: none;">
+        <%= itemCart%>
+    </div>
+    <div style="text-align: center;">
+        <div id="costumerCart" style="text-align: center;">
+        
+        </div>
+        <button  onclick="location.href = '/home';" id="home" class="btn btn-secondary ml-3" style="margin:0px;margin-bottom: 50px;;">Home</button>
+    </div>
+
+    <script type = text/javascript>
+        let iphone = {
+            name: "iPhone 13 Pro",
+            price: 100
+        };
+        let galaxy = {
+            name: "Galaxy S21 Ultra",
+            price: 80
+        };
+        let boxing = {
+            name: "Boxing Bag",
+            price: 300
+        };
+        let tennis = {
+            name: "Tennis Racket",
+            price: 250
+        };
+        let sun = {
+            name: "The Sun and Her Flowers",
+            price: 40
+        };
+        let leaves = {
+            name: "Leaves of Grass",
+            price: 60
+        };
+        var itemCart = (document.getElementById('items').innerHTML).trim();
+        var addedToCart = itemCart.split(",");
+        console.log(addedToCart.length);
+        
+        //This function gets the name of the view according to item name
+        function getHref(cartItem) {
+            if(cartItem===iphone.name) {
+                return "iphone"; 
+                } else if(cartItem===galaxy.name) {
+                    return "galaxy"; 
+                } else if(cartItem===boxing.name) {
+                    return "boxing"; 
+                } else if(cartItem===tennis.name) {
+                    return "tennis"; 
+                } else if(cartItem===sun.name) {
+                    return "sun"; 
+                } else if(cartItem===leaves.name) {
+                    return "leaves"; 
+                }
+        }
+        var total = 0;
+        if(addedToCart[0]!==''){
+            for(var j = 0; j < addedToCart.length; j++) {
+            console.log(j + addedToCart[j]);
+
+            if(addedToCart[j]===iphone.name) {
+                    total += iphone.price; 
+                } else if(addedToCart[j]===galaxy.name) {
+                    total += galaxy.price; 
+                } else if(addedToCart[j]===boxing.name) {
+                    total += boxing.price; 
+                } else if(addedToCart[j]===tennis.name) {
+                    total += tennis.price; 
+                } else if(addedToCart[j]===sun.name) {
+                    total += sun.price; 
+                } else if(addedToCart[j]===leaves.name) {
+                    total += leaves.price; 
+                }
+
+            var box = document.createElement("div");
+            box.id = addedToCart[j];
+            box.style.display = "inline-block";
+            box.style.margin = "20px";
+
+            // var quantity = document.createElement("h3");
+            // quantity.innerHTML = "Quantity: " + count;
+            // quantity.style.color = "white";
+
+            var image = document.createElement("img");
+            image.setAttribute("src", "/" + getHref(addedToCart[j]) + ".jpg");
+            image.setAttribute("width","150");
+            image.setAttribute("height","235");
+            
+            var itemName = document.createElement("h3");
+            itemName.innerHTML = addedToCart[j];
+            itemName.style.color = "white";
+
+            var viewButton = document.createElement("button");
+            viewButton.setAttribute("onclick", `location.href = "/${getHref(addedToCart[j])}"`);
+            viewButton.setAttribute("class", "btn btn-secondary");
+            viewButton.innerHTML = "View";
+            viewButton.style.display = "block";
+            viewButton.style.margin = "auto";
+            viewButton.style.textAlign = "center";
+            var breakLine = document.createElement("br");
+
+
+            var form = document.createElement("form");
+            form.setAttribute("method", "POST");
+            form.setAttribute("action", `/remove${getHref(addedToCart[j])}`);
+            form.style.display = "inline-block";
+
+            var removeButton = document.createElement("button");
+            removeButton.setAttribute("class", "btn btn-warning");
+            removeButton.innerHTML = "Remove";
+            removeButton.style.display = "inline-block";
+            removeButton.style.align = "center";
+            removeButton.style.marginTop = "20px";
+
+            form.appendChild(removeButton);
+
+            // var formAll = document.createElement("form");
+            // formAll.setAttribute("method", "POST");
+            // formAll.setAttribute("action", `/removeall${addedToCart[j]}`);
+            // formAll.style.display = "inline-block";
+
+            // var removeAllButton = document.createElement("button");
+            // removeAllButton.setAttribute("class", "btn btn-danger");
+            // removeAllButton.innerHTML = "Remove All";
+            // removeAllButton.style.display = "inline-block";
+            // removeAllButton.style.align = "center";
+            // removeAllButton.style.marginTop = "20px";
+            // removeAllButton.style.marginLeft = "10px";
+            // removeAllButton.style.marginRight = "10px";
+
+            // formAll.appendChild(removeAllButton);
+
+
+            // box.appendChild(quantity);
+            box.appendChild(image);
+            box.appendChild(itemName);
+            box.appendChild(viewButton);
+            box.appendChild(form);
+            // box.appendChild(formAll);
+            document.getElementById('costumerCart').appendChild(box);
+            }
+
+            document.getElementById('costumerCart').appendChild(breakLine);
+
+            var totalPrice = document.createElement("h1");
+            totalPrice.innerHTML = "Total Price: $" + total;
+            totalPrice.style.color = "white";
+            totalPrice.style.display = "inline-block";
+            totalPrice.style.marginBottom = "0px";
+            document.getElementById('costumerCart').appendChild(totalPrice);
+
+            var formClear = document.createElement("form");
+            formClear.setAttribute("method", "POST");
+            formClear.setAttribute("action", "/clearcart");
+            formClear.style.display = "inline-block";
+
+            var clearButton = document.createElement("button");
+            clearButton.setAttribute("class", "btn btn-light");
+            clearButton.innerHTML = "Clear Cart";
+            clearButton.style.display = "inline-block";
+            clearButton.style.align = "right";
+            clearButton.style.marginBottom = "20px";
+            clearButton.style.marginLeft = "20px";
+
+            formClear.appendChild(clearButton);
+
+            document.getElementById('costumerCart').appendChild(formClear);
+        }
+        else {
+            var empty = document.createElement("h1");
+            empty.innerHTML = "There are no items in the cart.";
+            empty.style.topMargin = "50px";
+            document.getElementById('costumerCart').appendChild(empty);
+        }
+    </script>
+</body>
+</html>
